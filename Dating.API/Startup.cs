@@ -29,6 +29,9 @@ namespace Dating.API
         {
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //Anadido por mi
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +47,11 @@ namespace Dating.API
             }
 
             app.UseHttpsRedirection();
+
+            //anadiendo este codigo para evitar el error al usar la app desde angular u otro dominio
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseMvc();
+            
         }
     }
 }
