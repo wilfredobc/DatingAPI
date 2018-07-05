@@ -71,7 +71,10 @@ namespace Dating.API.Data
 
         public async Task<bool> UserExist(string username)
         {
-            throw new NotImplementedException();
+            if (await db.Users.AnyAsync(x => x.Username == username))
+                return true;
+
+            return false;
         }
     }
 }
